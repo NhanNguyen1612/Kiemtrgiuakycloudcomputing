@@ -1,0 +1,44 @@
+<section>
+  <h2>Thêm sách</h2>
+  <p>Mã phải bắt đầu bằng <strong>{{prefix}}</strong>. VAT: {{vatPercent}}%.</p>
+  <p>Lượt mở trang trong phiên: <strong>{{sessionViews}}</strong></p>
+
+  {{#if error}}<p class="error">{{error}}</p>{{/if}}
+
+  <form action="/books/new" method="post">
+    <label>Mã sách
+      <input name="productCode" value="{{form.productCode}}" placeholder="{{prefix}}BK002" required>
+    </label>
+    <label>Tên sách
+      <input name="title" value="{{form.title}}" required>
+    </label>
+    <label>Giá trước thuế
+      <input name="price" type="number" min="0" step="1" value="{{form.price}}" required>
+    </label>
+    <button type="submit">Thêm sách</button>
+  </form>
+</section>
+
+<section>
+  <h2>Danh sách sách</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Mã</th><th>Tên</th><th>Giá gốc</th><th>VAT</th><th>Giá sau thuế</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each books}}
+        <tr>
+          <td>{{productCode}}</td>
+          <td>{{title}}</td>
+          <td>{{priceBeforeTax}}</td>
+          <td>{{vatPercent}}%</td>
+          <td>{{priceAfterTax}}</td>
+        </tr>
+      {{else}}
+        <tr><td colspan="5">Chưa có sách.</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
